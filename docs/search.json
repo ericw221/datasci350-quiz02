@@ -1,0 +1,65 @@
+[
+  {
+    "objectID": "create-dataset.html",
+    "href": "create-dataset.html",
+    "title": "Create the Gapminder dataset",
+    "section": "",
+    "text": "# Import necessary libraries\nimport pandas as pd\nfrom gapminder import gapminder\n\n# Rename 'lifeExp' to 'life_expectancy' and 'gdpPercap' to 'gdp_per_capita'\ngapminder = gapminder.rename(columns={'lifeExp': 'life_expectancy',\n                                      'pop': 'population_millions', \n                                      'gdpPercap': 'gdp_per_capita'})\n\n# Convert population to millions\ngapminder['population_millions'] = gapminder['population_millions'] / 1_000_000\n\n# Create a new pandas DataFrame from the modified gapminder data\ngapminder_df = pd.DataFrame(gapminder)\n\n# Save the DataFrame as a CSV file\ngapminder_df.to_csv('gapminder.csv', index=False)\n\n# Print the first 3 rows of the DataFrame\nprint(gapminder_df.head(3))\n\n       country continent  year  life_expectancy  population_millions  \\\n0  Afghanistan      Asia  1952           28.801             8.425333   \n1  Afghanistan      Asia  1957           30.332             9.240934   \n2  Afghanistan      Asia  1962           31.997            10.267083   \n\n   gdp_per_capita  \n0      779.445314  \n1      820.853030  \n2      853.100710"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site"
+  },
+  {
+    "objectID": "life-gdp.html",
+    "href": "life-gdp.html",
+    "title": "Life Expectancy and GDP per Capita",
+    "section": "",
+    "text": "This page explores the relationship between life expectancy and GDP per capita."
+  },
+  {
+    "objectID": "life-gdp.html#description",
+    "href": "life-gdp.html#description",
+    "title": "Life Expectancy and GDP per Capita",
+    "section": "",
+    "text": "This page explores the relationship between life expectancy and GDP per capita."
+  },
+  {
+    "objectID": "life-gdp.html#analysis",
+    "href": "life-gdp.html#analysis",
+    "title": "Life Expectancy and GDP per Capita",
+    "section": "Analysis",
+    "text": "Analysis\n\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\n\n# Load the dataset\ngapminder = pd.read_csv(\"gapminder.csv\")\n\n# Set the visual style\nsns.set_theme(style=\"whitegrid\")\n\n# Create the scatter plot\nplt.figure(figsize=(9, 6))\nsns.scatterplot(\n    data=gapminder, \n    x=\"gdp_per_capita\", \n    y=\"life_expectancy\", \n    hue=\"continent\", \n    alpha=0.7,\n    palette=\"viridis\"\n)\n\n\n\n# Add labels and title\nplt.title(\"Life Expectancy vs. GDP per Capita (1952-2007)\", fontsize=14)\nplt.xlabel(\"GDP per Capita\", fontsize=12)\nplt.ylabel(\"Life Expectancy (Years)\", fontsize=12)\n\n# Display the plot\nplt.show()"
+  },
+  {
+    "objectID": "country.html",
+    "href": "country.html",
+    "title": "Country Analysis",
+    "section": "",
+    "text": "This page explores how life expectancy, GDP per capita, and population have evolved in the United states"
+  },
+  {
+    "objectID": "country.html#description",
+    "href": "country.html#description",
+    "title": "Country Analysis",
+    "section": "",
+    "text": "This page explores how life expectancy, GDP per capita, and population have evolved in the United states"
+  },
+  {
+    "objectID": "country.html#analysis",
+    "href": "country.html#analysis",
+    "title": "Country Analysis",
+    "section": "Analysis",
+    "text": "Analysis\n\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\n\n# Load the dataset\ngapminder = pd.read_csv(\"gapminder.csv\")\n\n# Filter the data for the United States\nus_data = gapminder[gapminder['country'] == 'United States']\n\n# Set up the matplotlib figure with 3 subplots sharing the x-axis\nfig, axes = plt.subplots(3, 1, figsize=(10, 12), sharex=True)\nsns.set_theme(style=\"whitegrid\")\n\n# Plot 1: Life Expectancy over time\nsns.lineplot(\n    ax=axes[0], data=us_data, x=\"year\", y=\"life_expectancy\", \n    marker=\"o\", color=\"mediumblue\", linewidth=2\n)\naxes[0].set_title(\"Life Expectancy (Years)\", fontsize=12)\naxes[0].set_ylabel(\"\")\n\n# Plot 2: GDP per Capita over time\nsns.lineplot(\n    ax=axes[1], data=us_data, x=\"year\", y=\"gdp_per_capita\", \n    marker=\"o\", color=\"forestgreen\", linewidth=2\n)\naxes[1].set_title(\"GDP per Capita ($)\", fontsize=12)\naxes[1].set_ylabel(\"\")\n\n# Plot 3: Population over time\nsns.lineplot(\n    ax=axes[2], data=us_data, x=\"year\", y=\"population_millions\", \n    marker=\"o\", color=\"darkred\", linewidth=2\n)\naxes[2].set_title(\"Population (Millions)\", fontsize=12)\naxes[2].set_ylabel(\"\")\naxes[2].set_xlabel(\"Year\", fontsize=12)\n\n# Adjust layout to prevent overlapping\nplt.tight_layout()\nplt.suptitle(\"United States Development Trends (1952 - 2007)\", y=1.03, fontsize=16)\n\n# Display the plot\nplt.show()\n\n\n\n\n\n\n\n\nIt is evident that all three metrics have steadily increased with time."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Quiz 2",
+    "section": "",
+    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites."
+  }
+]

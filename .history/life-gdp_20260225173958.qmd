@@ -1,0 +1,4 @@
+---
+title: "Life Expectancy and GDP per Capita"
+---
+
