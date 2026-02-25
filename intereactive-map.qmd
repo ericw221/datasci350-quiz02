@@ -1,0 +1,41 @@
+---
+title: "Global Life Expectancy Map"
+---
+
+## Interactive World Map
+
+The map below illustrates life expectancy across the globe. You can hover over individual countries to see their specific data, or use the slider at the bottom to watch how life expectancy has evolved worldwide from 1952 to 2007.
+
+```{python}
+#| echo: true
+#| message: false
+#| warning: false
+
+import pandas as pd
+import plotly.express as px
+
+# Load the dataset
+gapminder = pd.read_csv("gapminder.csv")
+
+# Create the interactive choropleth map
+fig = px.choropleth(
+    gapminder,
+    locations="country",
+    locationmode="country names", # Tells Plotly to match our country column to its internal map
+    color="life_expectancy",
+    hover_name="country",
+    animation_frame="year",       # Adds a time slider!
+    color_continuous_scale=px.colors.sequential.Plasma,
+    title="Global Life Expectancy (1952-2007)",
+    range_color=[30, 85]          # Sets a fixed color scale for the animation
+)
+
+# Update layout for a cleaner look
+fig.update_layout(
+    geo=dict(showframe=False, showcoastlines=True, projection_type='equirectangular'),
+    margin={"r":0,"t":40,"l":0,"b":0}
+)
+
+# Display the map
+fig.show()
+```
