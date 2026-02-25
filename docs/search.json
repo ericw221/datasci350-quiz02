@@ -7,25 +7,25 @@
     "text": "# Import necessary libraries\nimport pandas as pd\nfrom gapminder import gapminder\n\n# Rename 'lifeExp' to 'life_expectancy' and 'gdpPercap' to 'gdp_per_capita'\ngapminder = gapminder.rename(columns={'lifeExp': 'life_expectancy',\n                                      'pop': 'population_millions', \n                                      'gdpPercap': 'gdp_per_capita'})\n\n# Convert population to millions\ngapminder['population_millions'] = gapminder['population_millions'] / 1_000_000\n\n# Create a new pandas DataFrame from the modified gapminder data\ngapminder_df = pd.DataFrame(gapminder)\n\n# Save the DataFrame as a CSV file\ngapminder_df.to_csv('gapminder.csv', index=False)\n\n# Print the first 3 rows of the DataFrame\nprint(gapminder_df.head(3))\n\n       country continent  year  life_expectancy  population_millions  \\\n0  Afghanistan      Asia  1952           28.801             8.425333   \n1  Afghanistan      Asia  1957           30.332             9.240934   \n2  Afghanistan      Asia  1962           31.997            10.267083   \n\n   gdp_per_capita  \n0      779.445314  \n1      820.853030  \n2      853.100710"
   },
   {
-    "objectID": "intereactive-map.html",
-    "href": "intereactive-map.html",
-    "title": "Global Life Expectancy Map",
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site"
+  },
+  {
+    "objectID": "interactive-map.html",
+    "href": "interactive-map.html",
+    "title": "Interactive Global Map",
     "section": "",
     "text": "The map below illustrates life expectancy across the globe. You can hover over individual countries to see their specific data, or use the slider at the bottom to watch how life expectancy has evolved worldwide from 1952 to 2007.\n\nimport pandas as pd\nimport plotly.express as px\n\n# Load the dataset\ngapminder = pd.read_csv(\"gapminder.csv\")\n\n# Create the interactive choropleth map\nfig = px.choropleth(\n    gapminder,\n    locations=\"country\",\n    locationmode=\"country names\", # Tells Plotly to match our country column to its internal map\n    color=\"life_expectancy\",\n    hover_name=\"country\",\n    animation_frame=\"year\",       # Adds a time slider!\n    color_continuous_scale=px.colors.sequential.Plasma,\n    title=\"Global Life Expectancy (1952-2007)\",\n    range_color=[30, 85]          # Sets a fixed color scale for the animation\n)\n\n# Update layout for a cleaner look\nfig.update_layout(\n    geo=dict(showframe=False, showcoastlines=True, projection_type='equirectangular'),\n    margin={\"r\":0,\"t\":40,\"l\":0,\"b\":0}\n)\n\n# Display the map\nfig.show()"
   },
   {
-    "objectID": "intereactive-map.html#interactive-world-map",
-    "href": "intereactive-map.html#interactive-world-map",
-    "title": "Global Life Expectancy Map",
+    "objectID": "interactive-map.html#interactive-world-map",
+    "href": "interactive-map.html#interactive-world-map",
+    "title": "Interactive Global Map",
     "section": "",
     "text": "The map below illustrates life expectancy across the globe. You can hover over individual countries to see their specific data, or use the slider at the bottom to watch how life expectancy has evolved worldwide from 1952 to 2007.\n\nimport pandas as pd\nimport plotly.express as px\n\n# Load the dataset\ngapminder = pd.read_csv(\"gapminder.csv\")\n\n# Create the interactive choropleth map\nfig = px.choropleth(\n    gapminder,\n    locations=\"country\",\n    locationmode=\"country names\", # Tells Plotly to match our country column to its internal map\n    color=\"life_expectancy\",\n    hover_name=\"country\",\n    animation_frame=\"year\",       # Adds a time slider!\n    color_continuous_scale=px.colors.sequential.Plasma,\n    title=\"Global Life Expectancy (1952-2007)\",\n    range_color=[30, 85]          # Sets a fixed color scale for the animation\n)\n\n# Update layout for a cleaner look\nfig.update_layout(\n    geo=dict(showframe=False, showcoastlines=True, projection_type='equirectangular'),\n    margin={\"r\":0,\"t\":40,\"l\":0,\"b\":0}\n)\n\n# Display the map\nfig.show()"
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Gapminder Dataset Analysis",
-    "section": "",
-    "text": "The Gapminder dataset provides historical data on life expectancy, population, and GDP per capita for 142 countries from 1952 to 2007.\n\nExplore the Analysis\n\nLife Expectancy and GDP per Capita\nLife Expectancy and Population\nCountry Analysis"
   },
   {
     "objectID": "country.html",
@@ -70,11 +70,11 @@
     "text": "Analysis\n\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\n\n# Load the dataset\ngapminder = pd.read_csv(\"gapminder.csv\")\n\n# Set the visual style\nsns.set_theme(style=\"whitegrid\")\n\n# Create the scatter plot\nplt.figure(figsize=(9, 6))\nsns.scatterplot(\n    data=gapminder, \n    x=\"gdp_per_capita\", \n    y=\"life_expectancy\", \n    hue=\"continent\", \n    alpha=0.7,\n    palette=\"viridis\"\n)\n\n\n\n# Add labels and title\nplt.title(\"Life Expectancy vs. GDP per Capita (1952-2007)\", fontsize=14)\nplt.xlabel(\"GDP per Capita\", fontsize=12)\nplt.ylabel(\"Life Expectancy (Years)\", fontsize=12)\n\n# Display the plot\nplt.show()"
   },
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Gapminder Dataset Analysis",
     "section": "",
-    "text": "About this site"
+    "text": "The Gapminder dataset provides historical data on life expectancy, population, and GDP per capita for 142 countries from 1952 to 2007.\n\nExplore the Analysis\n\nLife Expectancy and GDP per Capita\nLife Expectancy and Population\nCountry Analysis\nInteractive Global Map"
   },
   {
     "objectID": "life-population.html",

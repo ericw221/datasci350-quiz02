@@ -1,5 +1,5 @@
 ---
-title: "Global Life Expectancy Map"
+title: "Interactive Global Map"
 ---
 
 ## Interactive World Map
