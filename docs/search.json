@@ -7,32 +7,25 @@
     "text": "# Import necessary libraries\nimport pandas as pd\nfrom gapminder import gapminder\n\n# Rename 'lifeExp' to 'life_expectancy' and 'gdpPercap' to 'gdp_per_capita'\ngapminder = gapminder.rename(columns={'lifeExp': 'life_expectancy',\n                                      'pop': 'population_millions', \n                                      'gdpPercap': 'gdp_per_capita'})\n\n# Convert population to millions\ngapminder['population_millions'] = gapminder['population_millions'] / 1_000_000\n\n# Create a new pandas DataFrame from the modified gapminder data\ngapminder_df = pd.DataFrame(gapminder)\n\n# Save the DataFrame as a CSV file\ngapminder_df.to_csv('gapminder.csv', index=False)\n\n# Print the first 3 rows of the DataFrame\nprint(gapminder_df.head(3))\n\n       country continent  year  life_expectancy  population_millions  \\\n0  Afghanistan      Asia  1952           28.801             8.425333   \n1  Afghanistan      Asia  1957           30.332             9.240934   \n2  Afghanistan      Asia  1962           31.997            10.267083   \n\n   gdp_per_capita  \n0      779.445314  \n1      820.853030  \n2      853.100710"
   },
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
+    "objectID": "intereactive-map.html",
+    "href": "intereactive-map.html",
+    "title": "Global Life Expectancy Map",
     "section": "",
-    "text": "About this site"
+    "text": "The map below illustrates life expectancy across the globe. You can hover over individual countries to see their specific data, or use the slider at the bottom to watch how life expectancy has evolved worldwide from 1952 to 2007.\n\nimport pandas as pd\nimport plotly.express as px\n\n# Load the dataset\ngapminder = pd.read_csv(\"gapminder.csv\")\n\n# Create the interactive choropleth map\nfig = px.choropleth(\n    gapminder,\n    locations=\"country\",\n    locationmode=\"country names\", # Tells Plotly to match our country column to its internal map\n    color=\"life_expectancy\",\n    hover_name=\"country\",\n    animation_frame=\"year\",       # Adds a time slider!\n    color_continuous_scale=px.colors.sequential.Plasma,\n    title=\"Global Life Expectancy (1952-2007)\",\n    range_color=[30, 85]          # Sets a fixed color scale for the animation\n)\n\n# Update layout for a cleaner look\nfig.update_layout(\n    geo=dict(showframe=False, showcoastlines=True, projection_type='equirectangular'),\n    margin={\"r\":0,\"t\":40,\"l\":0,\"b\":0}\n)\n\n# Display the map\nfig.show()"
   },
   {
-    "objectID": "life-gdp.html",
-    "href": "life-gdp.html",
-    "title": "Life Expectancy and GDP per Capita",
+    "objectID": "intereactive-map.html#interactive-world-map",
+    "href": "intereactive-map.html#interactive-world-map",
+    "title": "Global Life Expectancy Map",
     "section": "",
-    "text": "This page explores the relationship between life expectancy and GDP per capita."
+    "text": "The map below illustrates life expectancy across the globe. You can hover over individual countries to see their specific data, or use the slider at the bottom to watch how life expectancy has evolved worldwide from 1952 to 2007.\n\nimport pandas as pd\nimport plotly.express as px\n\n# Load the dataset\ngapminder = pd.read_csv(\"gapminder.csv\")\n\n# Create the interactive choropleth map\nfig = px.choropleth(\n    gapminder,\n    locations=\"country\",\n    locationmode=\"country names\", # Tells Plotly to match our country column to its internal map\n    color=\"life_expectancy\",\n    hover_name=\"country\",\n    animation_frame=\"year\",       # Adds a time slider!\n    color_continuous_scale=px.colors.sequential.Plasma,\n    title=\"Global Life Expectancy (1952-2007)\",\n    range_color=[30, 85]          # Sets a fixed color scale for the animation\n)\n\n# Update layout for a cleaner look\nfig.update_layout(\n    geo=dict(showframe=False, showcoastlines=True, projection_type='equirectangular'),\n    margin={\"r\":0,\"t\":40,\"l\":0,\"b\":0}\n)\n\n# Display the map\nfig.show()"
   },
   {
-    "objectID": "life-gdp.html#description",
-    "href": "life-gdp.html#description",
-    "title": "Life Expectancy and GDP per Capita",
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Gapminder Dataset Analysis",
     "section": "",
-    "text": "This page explores the relationship between life expectancy and GDP per capita."
-  },
-  {
-    "objectID": "life-gdp.html#analysis",
-    "href": "life-gdp.html#analysis",
-    "title": "Life Expectancy and GDP per Capita",
-    "section": "Analysis",
-    "text": "Analysis\n\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\n\n# Load the dataset\ngapminder = pd.read_csv(\"gapminder.csv\")\n\n# Set the visual style\nsns.set_theme(style=\"whitegrid\")\n\n# Create the scatter plot\nplt.figure(figsize=(9, 6))\nsns.scatterplot(\n    data=gapminder, \n    x=\"gdp_per_capita\", \n    y=\"life_expectancy\", \n    hue=\"continent\", \n    alpha=0.7,\n    palette=\"viridis\"\n)\n\n\n\n# Add labels and title\nplt.title(\"Life Expectancy vs. GDP per Capita (1952-2007)\", fontsize=14)\nplt.xlabel(\"GDP per Capita\", fontsize=12)\nplt.ylabel(\"Life Expectancy (Years)\", fontsize=12)\n\n# Display the plot\nplt.show()"
+    "text": "The Gapminder dataset provides historical data on life expectancy, population, and GDP per capita for 142 countries from 1952 to 2007.\n\nExplore the Analysis\n\nLife Expectancy and GDP per Capita\nLife Expectancy and Population\nCountry Analysis"
   },
   {
     "objectID": "country.html",
@@ -56,10 +49,52 @@
     "text": "Analysis\n\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\n\n# Load the dataset\ngapminder = pd.read_csv(\"gapminder.csv\")\n\n# Filter the data for the United States\nus_data = gapminder[gapminder['country'] == 'United States']\n\n# Set up the matplotlib figure with 3 subplots sharing the x-axis\nfig, axes = plt.subplots(3, 1, figsize=(10, 12), sharex=True)\nsns.set_theme(style=\"whitegrid\")\n\n# Plot 1: Life Expectancy over time\nsns.lineplot(\n    ax=axes[0], data=us_data, x=\"year\", y=\"life_expectancy\", \n    marker=\"o\", color=\"mediumblue\", linewidth=2\n)\naxes[0].set_title(\"Life Expectancy (Years)\", fontsize=12)\naxes[0].set_ylabel(\"\")\n\n# Plot 2: GDP per Capita over time\nsns.lineplot(\n    ax=axes[1], data=us_data, x=\"year\", y=\"gdp_per_capita\", \n    marker=\"o\", color=\"forestgreen\", linewidth=2\n)\naxes[1].set_title(\"GDP per Capita ($)\", fontsize=12)\naxes[1].set_ylabel(\"\")\n\n# Plot 3: Population over time\nsns.lineplot(\n    ax=axes[2], data=us_data, x=\"year\", y=\"population_millions\", \n    marker=\"o\", color=\"darkred\", linewidth=2\n)\naxes[2].set_title(\"Population (Millions)\", fontsize=12)\naxes[2].set_ylabel(\"\")\naxes[2].set_xlabel(\"Year\", fontsize=12)\n\n# Adjust layout to prevent overlapping\nplt.tight_layout()\nplt.suptitle(\"United States Development Trends (1952 - 2007)\", y=1.03, fontsize=16)\n\n# Display the plot\nplt.show()\n\n\n\n\n\n\n\n\nIt is evident that all three metrics have steadily increased with time."
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Quiz 2",
+    "objectID": "life-gdp.html",
+    "href": "life-gdp.html",
+    "title": "Life Expectancy and GDP per Capita",
     "section": "",
-    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites."
+    "text": "This page explores the relationship between life expectancy and GDP per capita."
+  },
+  {
+    "objectID": "life-gdp.html#description",
+    "href": "life-gdp.html#description",
+    "title": "Life Expectancy and GDP per Capita",
+    "section": "",
+    "text": "This page explores the relationship between life expectancy and GDP per capita."
+  },
+  {
+    "objectID": "life-gdp.html#analysis",
+    "href": "life-gdp.html#analysis",
+    "title": "Life Expectancy and GDP per Capita",
+    "section": "Analysis",
+    "text": "Analysis\n\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\n\n# Load the dataset\ngapminder = pd.read_csv(\"gapminder.csv\")\n\n# Set the visual style\nsns.set_theme(style=\"whitegrid\")\n\n# Create the scatter plot\nplt.figure(figsize=(9, 6))\nsns.scatterplot(\n    data=gapminder, \n    x=\"gdp_per_capita\", \n    y=\"life_expectancy\", \n    hue=\"continent\", \n    alpha=0.7,\n    palette=\"viridis\"\n)\n\n\n\n# Add labels and title\nplt.title(\"Life Expectancy vs. GDP per Capita (1952-2007)\", fontsize=14)\nplt.xlabel(\"GDP per Capita\", fontsize=12)\nplt.ylabel(\"Life Expectancy (Years)\", fontsize=12)\n\n# Display the plot\nplt.show()"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site"
+  },
+  {
+    "objectID": "life-population.html",
+    "href": "life-population.html",
+    "title": "Life Expectancy and Population",
+    "section": "",
+    "text": "This page explores the relationship between life expectancy and population."
+  },
+  {
+    "objectID": "life-population.html#description",
+    "href": "life-population.html#description",
+    "title": "Life Expectancy and Population",
+    "section": "",
+    "text": "This page explores the relationship between life expectancy and population."
+  },
+  {
+    "objectID": "life-population.html#analysis",
+    "href": "life-population.html#analysis",
+    "title": "Life Expectancy and Population",
+    "section": "Analysis",
+    "text": "Analysis\n\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\n\n# Load the dataset\ngapminder = pd.read_csv(\"gapminder.csv\")\n\n# Set the visual style\nsns.set_theme(style=\"whitegrid\")\n\n# Create the scatter plot\nplt.figure(figsize=(9, 6))\nsns.scatterplot(\n    data=gapminder, \n    x=\"population_millions\", \n    y=\"life_expectancy\", \n    hue=\"continent\", \n    alpha=0.6,\n    palette=\"magma\"\n)\n\n\n# Add labels and title\nplt.title(\"Life Expectancy vs. Population (1952-2007)\", fontsize=14)\nplt.xlabel(\"Population in Millions\", fontsize=12)\nplt.ylabel(\"Life Expectancy (Years)\", fontsize=12)\n\n# Display the plot\nplt.show()"
   }
 ]
